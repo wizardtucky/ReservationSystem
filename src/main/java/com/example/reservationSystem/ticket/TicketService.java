@@ -2,9 +2,7 @@ package com.example.reservationSystem.ticket;
 
 import com.example.reservationSystem.ticket.model.Ticket;
 import com.example.reservationSystem.ticket.model.TicketDto;
-import com.example.reservationSystem.user.UserMapper;
 import com.example.reservationSystem.user.UserService;
-import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -61,9 +59,5 @@ public class TicketService {
 
     public void deleteTicket(Long id){
         ticketRepository.delete(getTicket(id));
-    }
-
-    public Optional<TicketDto> getTicketDto(Long id){
-        return ticketRepository.findById(id).map(TicketMapper:: toTicketDto);
     }
 }

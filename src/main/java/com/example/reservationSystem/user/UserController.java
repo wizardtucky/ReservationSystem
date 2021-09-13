@@ -18,14 +18,12 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     public UserDto getUser(@PathVariable Long id){
-
         return userService.getUserDto(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
     }
 
     @GetMapping
     public List<UserDto> getAllUsers(){
-
         return userService.getAllUsersDto();
     }
 
