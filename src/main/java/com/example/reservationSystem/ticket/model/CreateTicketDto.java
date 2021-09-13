@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @Builder
 public class CreateTicketDto {
-    long id;
-    Date time;
+    private long id;
+    private Date time;
     private String test;
 }
