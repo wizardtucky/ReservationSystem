@@ -1,14 +1,13 @@
 package com.example.reservationSystem.user.model;
 
+import com.example.reservationSystem.ticket.model.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +24,6 @@ public class User{
     String name;
     String surname;
     String password;
+    @OneToMany
+    List<Ticket> tickets;
 }

@@ -2,11 +2,15 @@ package com.example.reservationSystem.ticket;
 
 import com.example.reservationSystem.ticket.model.Ticket;
 import com.example.reservationSystem.ticket.model.TicketDto;
+import com.example.reservationSystem.user.UserMapper;
+import com.example.reservationSystem.user.UserService;
+import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TicketService {
 
+    private final UserService userService;
     private final TicketRepository ticketRepository;
 
     public Optional<TicketDto> getTicketDto(Long id){
@@ -29,8 +34,21 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public TicketDto createTicket(TicketDto createTicketDto){
-        Ticket newTicket = TicketMapper.toTicket(createTicketDto);
+    public List<TicketDto> getTicketsByUser(Long id){
+        return ticketRepository
+                .findAllByUser(userService.getUser(id))
+                .stream()
+                .map(TicketMapper::toTicketDto)
+                .collect(Collectors.toList());
+    }
+
+    public TicketDto createTicket(Long userId){
+        Ticket newTicket = Ticket.builder()
+                .time(new Date())
+                .test("test")
+                .user(userService.getUser(userId))
+                .build();
+
         ticketRepository.save(newTicket);
         return TicketMapper.toTicketDto(newTicket);
     }
@@ -43,5 +61,9 @@ public class TicketService {
 
     public void deleteTicket(Long id){
         ticketRepository.delete(getTicket(id));
+    }
+
+    public Optional<TicketDto> getTicketDto(Long id){
+        return ticketRepository.findById(id).map(TicketMapper:: toTicketDto);
     }
 }

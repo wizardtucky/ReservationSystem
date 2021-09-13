@@ -16,10 +16,10 @@ public class TicketController {
     private final TicketService ticketService;
 
     @GetMapping(path = "{id}")
-    public TicketDto getTicket(@PathVariable Long id) {
+    public TicketDto getTicket(@PathVariable Long id){
 
         return ticketService.getTicketDto(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found by id " + id));
     }
 
     @GetMapping
@@ -28,13 +28,18 @@ public class TicketController {
         return ticketService.getAllTicketsDto();
     }
 
-    @PostMapping
-    public TicketDto createTicket(@RequestBody TicketDto ticketDto){
+    @PostMapping(path = "/{id}")
+    public TicketDto createTicket(@PathVariable Long id){
 
-        return ticketService.createTicket(ticketDto);
+        return ticketService.createTicket(id);
     }
 
     @DeleteMapping(path = "/{id}")
     public void deleteTicket(@PathVariable Long id){ ticketService.deleteTicket(id);
+    }
+
+    @GetMapping(path = "/user/{id}")
+    public List<TicketDto> getTicketsByUser(@PathVariable Long id){
+        return ticketService.getTicketsByUser(id);
     }
 }

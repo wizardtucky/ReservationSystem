@@ -1,14 +1,12 @@
 package com.example.reservationSystem.ticket.model;
 
+import com.example.reservationSystem.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -23,4 +21,7 @@ public class Ticket {
     private Long id;
     private String test;
     private Date time;
+
+    @ManyToOne
+    User user;
 }
