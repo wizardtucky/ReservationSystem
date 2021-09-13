@@ -13,5 +13,6 @@ public class TicketDto {
     private long id;
     private Date time;
     private String test;
+    private Boolean isActive;
     private UserDto user;
 }

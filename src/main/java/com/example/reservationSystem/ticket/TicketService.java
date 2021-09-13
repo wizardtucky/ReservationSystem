@@ -5,6 +5,7 @@ import com.example.reservationSystem.ticket.model.TicketDto;
 import com.example.reservationSystem.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,6 +45,7 @@ public class TicketService {
         Ticket newTicket = Ticket.builder()
                 .time(new Date())
                 .test("test")
+                .isActive(true)
                 .user(userService.getUser(userId))
                 .build();
 
@@ -53,11 +55,19 @@ public class TicketService {
 
     public Ticket getTicket(Long id){
         Optional<Ticket> ticket = ticketRepository.findById(id);
-        ticket.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
+        ticket.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found by id " + id));
         return ticket.get();
     }
 
     public void deleteTicket(Long id){
         ticketRepository.delete(getTicket(id));
+    }
+
+    public ResponseEntity<Ticket> changeTicketStatus(Long id, Boolean isActive) {
+
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found on :: "+ id));
+        ticket.setIsActive(isActive);
+        final Ticket changedTicket = ticketRepository.save(ticket);
+        return ResponseEntity.ok(changedTicket);
     }
 }

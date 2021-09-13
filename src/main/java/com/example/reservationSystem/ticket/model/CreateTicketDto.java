@@ -11,4 +11,5 @@ public class CreateTicketDto {
     private long id;
     private Date time;
     private String test;
+    private Boolean isActive;
 }

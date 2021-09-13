@@ -38,8 +38,15 @@ public class TicketController {
     public void deleteTicket(@PathVariable Long id){ ticketService.deleteTicket(id);
     }
 
+    @PutMapping(path = "/{id}/{isActive}")
+    public void changeActiveStatus(@PathVariable Long id, @PathVariable Boolean isActive){
+        ticketService.changeTicketStatus(id, isActive);
+    }
+
     @GetMapping(path = "/user/{id}")
     public List<TicketDto> getTicketsByUser(@PathVariable Long id){
         return ticketService.getTicketsByUser(id);
     }
+
+
 }
