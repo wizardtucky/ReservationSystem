@@ -17,6 +17,10 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
 
+    public Optional<TicketDto> getTicketDto(Long id){
+        return ticketRepository.findById(id).map(TicketMapper:: toTicketDto);
+    }
+
     public List<TicketDto> getAllTicketsDto(){
         return ticketRepository
                 .findAll()
