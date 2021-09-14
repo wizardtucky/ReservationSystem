@@ -26,4 +26,5 @@ public class User{
     String password;
     @OneToMany
     List<Ticket> tickets;
+
 }
