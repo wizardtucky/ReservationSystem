@@ -1,8 +1,8 @@
-package com.example.reservationSystem.registartiondemo.registration;
+package com.example.reservationSystem.user.registration;
 
-import com.example.reservationSystem.registartiondemo.appuser.AppUser;
-import com.example.reservationSystem.registartiondemo.appuser.AppUserService;
-import com.example.reservationSystem.registartiondemo.appuser.UserRole;
+import com.example.reservationSystem.user.UserService;
+import com.example.reservationSystem.user.model.User;
+import com.example.reservationSystem.user.model.UserRole;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class RegistrationService {
 
-    private final AppUserService appUserService;
+    private final UserService userService;
     private final EmailValidator emailValidator;
 
     public String register(RegistrationRequest request) {
@@ -18,7 +18,8 @@ public class RegistrationService {
         if(!isValidEmail) {
             throw new IllegalStateException("email not valid");
         }
-        return appUserService.signUpUser(new AppUser(
+
+        return userService.signUpUser(new User(
                 request.getEmail(),
                 request.getName(),
                 request.getSurname(),

@@ -1,6 +1,6 @@
 package com.example.reservationSystem.security.config;
 
-import com.example.reservationSystem.registartiondemo.appuser.AppUserService;
+import com.example.reservationSystem.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AppUserService appUserService;
+    private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .logout().disable()
+                .formLogin().disable()
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
@@ -42,22 +43,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/h2-console/**",
                         "/session",
                         "/users",
+                        "/login/**",
                         "/user/registration/**"
-                ).permitAll()
-                .anyRequest()
-                .authenticated().and()
-                .formLogin();
+                ).permitAll();
+                //.anyRequest()
+                //.authenticated();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
+
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(appUserService);
+        provider.setUserDetailsService(userService);
         return provider;
     }
 }

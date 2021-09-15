@@ -1,4 +1,4 @@
-package com.example.reservationSystem.registartiondemo.registration;
+package com.example.reservationSystem.user.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,5 +14,4 @@ public class RegistrationRequest {
     private final String surname;
     private final String password;
     private final String email;
-
 }
