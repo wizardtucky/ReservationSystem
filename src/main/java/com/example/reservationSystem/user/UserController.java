@@ -3,17 +3,19 @@ package com.example.reservationSystem.user;
 import com.example.reservationSystem.user.model.CreateUserDto;
 import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-
+    //@Autowired
     private final UserService userService;
 
     @GetMapping(path = "/{id}")
@@ -22,7 +24,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
     }
 
-    @GetMapping
+    @GetMapping("allusers")
     public List<UserDto> getAllUsers(){
         return userService.getAllUsersDto();
     }
