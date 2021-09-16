@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -22,7 +23,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
     }
 
-    @GetMapping
+    @GetMapping(path = "/allusers")
     public List<UserDto> getAllUsers(){
         return userService.getAllUsersDto();
     }
