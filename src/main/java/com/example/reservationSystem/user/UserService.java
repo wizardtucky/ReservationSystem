@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
 
-        //TODO: send confirmation token
+        //TODO: send confirmation token maybe
 
         return "works!";
     }

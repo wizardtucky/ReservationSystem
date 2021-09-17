@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 public class RegistrationService {
 
     private final UserService userService;
-    private final EmailValidator emailValidator;
+    //private final EmailValidator emailValidator;
 
     public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.test(request.getEmail());
-        if(!isValidEmail) {
-            throw new IllegalStateException("email not valid");
-        }
+//        boolean isValidEmail = emailValidator.test(request.getEmail());
+//        if(!isValidEmail) {
+//            throw new IllegalStateException("email not valid");
+//        }
 
         return userService.signUpUser(new User(
                 request.getEmail(),
