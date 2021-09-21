@@ -1,6 +1,5 @@
 package com.example.reservationSystem.ticket;
 
-
 import com.example.reservationSystem.ticket.model.TicketDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,10 +38,10 @@ public class TicketController {
     public void deleteTicket(@PathVariable Long id){ ticketService.deleteTicket(id);
     }
 
-    @PutMapping(path = "/{id}/{isActive}")
-    public void changeActiveStatus(@PathVariable Long id, @PathVariable Boolean isActive){
-        ticketService.changeTicketStatus(id, isActive);
-    }
+//    @PutMapping(path = "/{id}/{isActive}")
+//    public void changeActiveStatus(@PathVariable Long id, @PathVariable Boolean isActive){
+//        ticketService.changeTicketStatus(id, isActive);
+//    }
 
     @GetMapping(path = "/user/{id}")
     public List<TicketDto> getTicketsByUser(@PathVariable Long id){

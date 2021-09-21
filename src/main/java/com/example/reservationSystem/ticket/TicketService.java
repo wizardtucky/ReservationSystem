@@ -2,10 +2,11 @@ package com.example.reservationSystem.ticket;
 
 import com.example.reservationSystem.ticket.model.Ticket;
 import com.example.reservationSystem.ticket.model.TicketDto;
+import com.example.reservationSystem.user.UserMapper;
 import com.example.reservationSystem.user.UserService;
+import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,10 +21,6 @@ public class TicketService {
 
     private final UserService userService;
     private final TicketRepository ticketRepository;
-
-    public Optional<TicketDto> getTicketDto(Long id){
-        return ticketRepository.findById(id).map(TicketMapper:: toTicketDto);
-    }
 
     public List<TicketDto> getAllTicketsDto(){
         return ticketRepository
@@ -45,7 +42,6 @@ public class TicketService {
         Ticket newTicket = Ticket.builder()
                 .time(new Date())
                 .test("test")
-                .isActive(true)
                 .user(userService.getUser(userId))
                 .build();
 
@@ -55,7 +51,7 @@ public class TicketService {
 
     public Ticket getTicket(Long id){
         Optional<Ticket> ticket = ticketRepository.findById(id);
-        ticket.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found by id " + id));
+        ticket.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
         return ticket.get();
     }
 
@@ -63,11 +59,7 @@ public class TicketService {
         ticketRepository.delete(getTicket(id));
     }
 
-    public ResponseEntity<Ticket> changeTicketStatus(Long id, Boolean isActive) {
-
-        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found on :: "+ id));
-        ticket.setIsActive(isActive);
-        final Ticket changedTicket = ticketRepository.save(ticket);
-        return ResponseEntity.ok(changedTicket);
+    public Optional<TicketDto> getTicketDto(Long id){
+        return ticketRepository.findById(id).map(TicketMapper:: toTicketDto);
     }
 }
