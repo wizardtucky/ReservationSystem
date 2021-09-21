@@ -17,6 +17,7 @@ public class UserMapper {
 
     public static UserDto toUserDto(User user){ // get by id(is serverio)
         return UserDto.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .surname(user.getSurname())

@@ -1,6 +1,7 @@
 package com.example.reservationSystem.user;
 
 import com.example.reservationSystem.user.model.CreateUserDto;
+import com.example.reservationSystem.user.model.User;
 import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -22,7 +24,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
     }
 
-    @GetMapping
+    @GetMapping(path = "/allusers")
     public List<UserDto> getAllUsers(){
         return userService.getAllUsersDto();
     }
@@ -37,4 +39,8 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    @PostMapping(path = "/login")
+    public User loginUser(@RequestBody LoginRequest request){
+        return userService.checkUserLogin(request);
+    }
 }

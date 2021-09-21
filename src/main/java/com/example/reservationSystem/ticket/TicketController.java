@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tickets")
@@ -47,6 +48,5 @@ public class TicketController {
     public List<TicketDto> getTicketsByUser(@PathVariable Long id){
         return ticketService.getTicketsByUser(id);
     }
-
 
 }

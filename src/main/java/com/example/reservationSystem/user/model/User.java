@@ -12,8 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data // getter setter
 @Builder
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -79,4 +78,5 @@ public class User implements UserDetails {
         return true;
     }
 
+    public boolean isActive() { return true; }
 }

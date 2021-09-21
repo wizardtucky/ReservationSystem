@@ -1,7 +1,7 @@
 package com.example.reservationSystem.security.config;
 
 import com.example.reservationSystem.user.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,11 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         prePostEnabled = true
 )
-@RequiredArgsConstructor
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
@@ -39,15 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
+                        "/swagger-ui.html/**",
                         "/v3/api-docs/**",
-                        "/h2-console/**",
                         "/session",
-                        "/users",
+                        "/tickets/**",
+                        "/users/**",
                         "/login/**",
                         "/user/registration/**"
                 ).permitAll();
-                //.anyRequest()
-                //.authenticated();
+//                .and().authorizeRequests().antMatchers("/users/**").hasAnyAuthority()
+//                .anyRequest()
+//                .authenticated().and()
+//                .formLogin();
     }
 
     @Override
