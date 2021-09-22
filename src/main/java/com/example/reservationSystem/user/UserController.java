@@ -5,12 +5,13 @@ import com.example.reservationSystem.user.model.User;
 import com.example.reservationSystem.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -25,6 +26,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/allusers")
+    @PreAuthorize("isAuthenticated()")
     public List<UserDto> getAllUsers(){
         return userService.getAllUsersDto();
     }

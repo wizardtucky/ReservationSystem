@@ -8,7 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tickets")
