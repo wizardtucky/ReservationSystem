@@ -19,6 +19,7 @@ public class TicketMapper {
                 .id(ticket.getId())
                 .test(ticket.getTest())
                 .user(UserMapper.toUserDto(ticket.getUser()))
+                .isActive(ticket.getIsActive())
                 .build();
     }
 }

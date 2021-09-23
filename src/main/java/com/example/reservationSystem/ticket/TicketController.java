@@ -48,4 +48,9 @@ public class TicketController {
         return ticketService.getTicketsByUser(id);
     }
 
+    @PutMapping(path = "/{id}/{isActive}")
+    public void changeActiveStatus(@PathVariable Long id, @PathVariable Boolean isActive){
+        ticketService.changeTicketStatus(id, isActive);
+    }
+
 }

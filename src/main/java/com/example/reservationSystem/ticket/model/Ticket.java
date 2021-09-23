@@ -21,6 +21,7 @@ public class Ticket {
     private Long id;
     private String test;
     private Date time;
+    private Boolean isActive;
 
     @ManyToOne
     User user;

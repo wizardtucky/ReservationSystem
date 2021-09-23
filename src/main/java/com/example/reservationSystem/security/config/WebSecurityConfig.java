@@ -58,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/h2-console/**",
                         "/session",
                         "/initiatives",
-                        "/users",
+                        "/users/**",
+                        "/tickets/**",
                         "/districts",
                         "/initiatives/applicants"
                 ).permitAll();
