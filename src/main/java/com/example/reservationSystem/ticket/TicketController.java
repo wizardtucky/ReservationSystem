@@ -34,6 +34,7 @@ public class TicketController {
         return ticketService.createTicket(id);
     }
 
+//    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(path = "/{id}")
     public void deleteTicket(@PathVariable Long id){ ticketService.deleteTicket(id);
     }
@@ -48,6 +49,7 @@ public class TicketController {
         return ticketService.getTicketsByUser(id);
     }
 
+//    @PreAuthorize("isAuthenticated()")
     @PutMapping(path = "/{id}/{isActive}")
     public void changeActiveStatus(@PathVariable Long id, @PathVariable Boolean isActive){
         ticketService.changeTicketStatus(id, isActive);

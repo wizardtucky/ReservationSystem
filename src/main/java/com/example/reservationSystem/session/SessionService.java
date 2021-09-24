@@ -47,6 +47,7 @@ public class SessionService {
                         .name(user.get().getName())
                         .surname(user.get().getSurname())
                         .email(user.get().getEmail())
+                        .userRole(user.get().getUserRole())
                         .build())
                 .orElse(null);
     }

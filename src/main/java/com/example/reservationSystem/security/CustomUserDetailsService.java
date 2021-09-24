@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByEmail(email).map(user -> new CustomUserDetails(
                 user.getEmail(),
                 user.getPassword(),
-                List.of("ADMIN", "USER"))
+                List.of(user.getUserRole().name()))
         )
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found by email = " + email));
     }

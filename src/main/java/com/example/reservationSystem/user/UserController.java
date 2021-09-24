@@ -30,11 +30,13 @@ public class UserController {
         return userService.getAllUsersDto();
     }
 
+
     @PostMapping
     public UserDto createUser(@RequestBody CreateUserDto user){
         return userService.createUser(user);
     }
 
+//    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(path = "/{id}")
     public void deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
